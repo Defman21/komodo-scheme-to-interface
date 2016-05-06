@@ -3,7 +3,7 @@ require_relative "scheme-to-interface/scheme-to-interface"
 
 path_to_file = [(print "Enter path to ksf file: "), gets.rstrip][1]
 
-path_to_file.gsub! '~', "#{Dir.home}/"
+path_to_file.gsub! '~', "#{Dir.home}"
 
 ksf = SchemeToInterface::Parser.parse_ksf path_to_file
 
@@ -49,7 +49,7 @@ end
 
   puts "Lighten #{ksf.bg} with #{amount}"
 
-  color = SchemeToInterface::Scheme.lighten ksf.bg, amount
+  color = SchemeToInterface::Scheme.contrasting ksf.bg, amount
 
   colors[:"#{hex}"] = color
 end
