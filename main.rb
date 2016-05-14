@@ -48,7 +48,7 @@ end
 
   amount = (m / 20.0).round 2
 
-  puts "Lighten #{ksf.bg} with #{amount}"
+  puts "Contrasting #{ksf.bg} with #{amount}"
 
   color = SchemeToInterface::Scheme.contrasting ksf.bg, amount
 
@@ -60,7 +60,7 @@ end
 
   amount = ((m + 1) / 3.5).round 2
 
-  puts "Darken #{colors[:"07"]} with #{amount} multiplier and assigning it to #{hex}"
+  puts "Contrasting #{colors[:"07"]} with #{amount} multiplier and assigning it to #{hex}"
   
   color = SchemeToInterface::Scheme.contrasting colors[:"07"], amount
 
