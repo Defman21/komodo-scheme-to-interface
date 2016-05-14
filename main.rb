@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'pp'
 require_relative "scheme-to-interface/scheme-to-interface"
 
