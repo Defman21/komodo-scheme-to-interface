@@ -61,7 +61,7 @@ InterfaceStyles = {
   'special widget': {'back': colors['02'], 'fore': colors['07']},
   'state error': {'back': colors['08']},
   'state foreground': {'fore': colors['07']},
-  'state info': {'back': colors['0a']},
+  'state info': {'back': colors['0c']},
   'state ok': {'back': colors['0b']},
   'state warning': {'back': colors['0a']},
   'textbox': {'back': colors['01'], 'fore': colors['07']},
