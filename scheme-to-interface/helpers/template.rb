@@ -4,7 +4,7 @@ module SchemeToInterface
 
 # Auto-generated Interface colors
 # Scheme2Interface.rb by Defman
-# http://defman.me/tools/scheme2interface
+# http://defman.me/projects/ko-s2i/
 
 def _(val):
     if type(val) == int:
