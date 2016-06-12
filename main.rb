@@ -4,69 +4,77 @@ require_relative "scheme-to-interface/scheme-to-interface"
 
 path_to_file = [(print "Enter path to ksf file: "), gets.rstrip][1]
 
+type = [(print "What kind of scheme it is? (light/dark): "), gets.rstrip][1]
+
 path_to_file.gsub! '~', "#{Dir.home}"
 
 ksf = SchemeToInterface::Parser.parse_ksf path_to_file
 
 colors = {
-  :'00' => nil,
-  :'01' => nil,
-  :'02' => nil,
-  :'03' => nil,
-  :'04' => nil,
-  :'05' => nil,
-  :'06' => nil,
-  :'07' => nil,
-  :'08' => nil,
-  :'09' => nil,
-  :'0a' => nil,
-  :'0b' => nil,
-  :'0c' => nil,
-  :'0d' => nil,
-  :'0e' => nil,
-  :'0f' => nil,
+  '00' => nil,
+  '01' => nil,
+  '02' => nil,
+  '03' => nil,
+  '04' => nil,
+  '05' => nil,
+  '06' => nil,
+  '07' => nil,
+  '08' => nil,
+  '09' => nil,
+  '0a' => nil,
+  '0b' => nil,
+  '0c' => nil,
+  '0d' => nil,
+  '0e' => nil,
+  '0f' => nil
 }
 
 ksf.fg.each_with_index do |color, index|
   colors_table = {
-    0 => :'0d',
-    1 => :'0e',
-    2 => :'0b',
-    3 => :'0a',
-    4 => :'08',
-    5 => :'09',
-    6 => :'0c',
-    7 => :'0f',
-    8 => :'07'
+    0 => '0d',
+    1 => '0e',
+    2 => '0b',
+    3 => '0a',
+    4 => '08',
+    5 => '09',
+    6 => '0c',
+    7 => '0f',
+    8 => '07'
   }
   puts "Assigning #{color} to colors[#{colors_table[index]}]"
   colors[colors_table[index]] = color
 end
 
-(0..3).each_with_index do |val, m|
-  hex = "%02x" % val
+colors['00'] = ksf.bg
 
-  amount = (m / 20.0).round 2
-
-  puts "Contrasting #{ksf.bg} with #{amount}"
-
-  color = SchemeToInterface::Scheme.contrasting ksf.bg, amount
-
-  colors[:"#{hex}"] = color
+case type
+  when "light"
+    [1,2,3].each do |i|
+      amount = 1.0 - (i / 10.0).round(2)
+      color = SchemeToInterface::Scheme.darken colors['00'], amount
+      puts "Type: light, hex: 0#{i}, action: dark, amount: #{amount} -> #{color}"
+      colors["0#{i}"] = color
+    end
+    [4,5,6].each do |i|
+      amount = 0.3 + (i / 10.0).round(2)
+      color = SchemeToInterface::Scheme.darken colors['07'], amount
+      puts "Type: light, hex: 0#{i}, action: dark, amount: #{amount} -> #{color}"
+      colors["0#{i}"] = color
+    end
+  when "dark"
+    [1,2,3].each do |i|
+      amount = (i / 10.0).round(2)
+      color = SchemeToInterface::Scheme.lighten colors['00'], amount
+      puts "Type: light, hex: 0#{i}, action: light, amount: #{amount} -> #{color}"
+      colors["0#{i}"] = color
+    end
+    [6,5,4].each do |i|
+      amount = 0.3 + (i / 10.0).round(2)
+      color = SchemeToInterface::Scheme.darken colors['07'], amount
+      puts "Type: light, hex: 0#{i}, action: dark, amount: #{amount} -> #{color}"
+      colors["0#{i}"] = color
+    end
 end
-
-(4..6).each_with_index do |val, m|
-  hex = "%02x" % val
-
-  amount = ((m + 1) / 3.5).round 2
-
-  puts "Contrasting #{colors[:"07"]} with #{amount} multiplier and assigning it to #{hex}"
-  
-  color = SchemeToInterface::Scheme.contrasting colors[:"07"], amount
-
-  colors[:"#{hex}"] = color
-end
-
 
 puts "Current color table: "
 pp colors

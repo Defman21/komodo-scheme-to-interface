@@ -154,28 +154,23 @@ module SchemeToInterface
       def darken(hex, amount)
         hex = hex.gsub('#', '')
         rgb = hex.scan(/../).map { |color| color.hex }
+        puts "<- #{rgb}"
         rgb[0] = (rgb[0].to_i * amount).round
         rgb[1] = (rgb[1].to_i * amount).round
         rgb[2] = (rgb[2].to_i * amount).round
+        puts "-> #{rgb}"
         "#%02x%02x%02x" % rgb
       end
 
       def lighten(hex, amount)
         hex = hex.gsub('#', '')
         rgb = hex.scan(/../).map { |color| color.hex }
+        puts "<- #{rgb}"
         rgb[0] = [(rgb[0].to_i + 255 * amount).round, 255].min
         rgb[1] = [(rgb[1].to_i + 255 * amount).round, 255].min
         rgb[2] = [(rgb[2].to_i + 255 * amount).round, 255].min
+        puts "-> #{rgb}"
         "#%02x%02x%02x" % rgb
-      end
-
-      def contrasting(hex_color, amount)
-        color = hex_color.gsub('#','')
-        self.convert_to_brightness_value(color) > 382.5 ? self.darken(color, amount) : self.lighten(color, amount)
-      end
-
-      def convert_to_brightness_value(hex_color)
-         (hex_color.scan(/../).map {|color| color.hex}).reduce :+
       end
     end
   end

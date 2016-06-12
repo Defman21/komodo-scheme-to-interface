@@ -40,7 +40,7 @@ colors = {
 
 InterfaceStyles = {
   'border': {'back': colors['03']},
-  'button': {'back': colors['02']},
+  'button': {'back': colors['02'], 'fore': colors['07']},
   'caption': {'fore': colors['07']},
   'contrast': {'back': colors['01']},
   'contrast widget': {'back': colors['02']},
