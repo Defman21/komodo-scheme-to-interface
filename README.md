@@ -9,6 +9,9 @@ This tool takes some colors from the scheme you want, convert them
 to base16-like colors (lighten/darken background/foreground) and
 generate a new ksf file.
 
+Note the results may not be very good, you probably will have to tweak it a
+bit. I'm working on the formulas to get the best colors, but it's hard.
+
 ## Installation
 
 ```sh
